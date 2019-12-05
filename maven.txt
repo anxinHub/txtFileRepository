@@ -1,0 +1,7 @@
+pom结构：
+modelVersion 文件版本
+groupid      组织名 org.springframework
+artifactid  工程id  spring-core
+varsion   版本号
+parent  父pom
+properties 自定义maven属性
