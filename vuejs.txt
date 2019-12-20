@@ -1,0 +1,159 @@
+在head下script引入vue.js
+el:挂载点
+data:{mes:1}
+v-for="i in mes"
+v-once 锁定数据
+v-html=“url” 以html形式展示
+v-text=“message”同于mustache--{{message}}
+v-pre 格式化输出
+v-cloak vue在解析之后删除该属性,加载时mustache的标签引用该属性，设置该属性不展示display可以达到加载的时候不显示某个标签，提高用户体验
+动态属性
+v-bind:src="imgurl" 动态绑定属性
+语法糖 :src=""
+v-model 双向绑定，将<input><select>等的value绑定到data里的数据。可以双向改变
+v-on:click="changeColor"  
+@click="changeColor" 
+
+打包： Webpack(模块化打包、依赖node，npm-node包管理)rolup
+dist-->distribution
+webpack ./src/main.js ./dist/bundle.js ——> webpack -->npm run build
+ //将webpack映射到nmp run build ,优先在本地找该命令
+node.js自带软件包管理工具npm
+安装全局webpack
+npm install webpack@3.6.0 -g
+安装局部webpack（先cd到对应的目录,生成node_modules）
+npm install webpack@3.6.0 --save-dev
+终端里的命令均使用全局，终端执行 ./node_modules/webpack 可使用本地，
+映射后（package.json中的script）优先使用本地命令（mode_modules/.bin） 
+npm安装loader
+npm install --save-dev css-loader
+npm install style-loader --save-dev
+npm install --save-dev url-loader 下载后在webpack中配置module.rules
+npm install --save-dev file-loader 图片大小大于limit配置时需要该loader，会将图片解析打  包到dist下，默认命名为32位的hash值
+es6转es5
+npm install babel-loader   babel-core babel-preset-env(需单独配置文件。environment缩写)
+npm install babel-loader@7 babel-core babel-preset-es2015
+安装vue，运行时依赖
+npm install vue --save
+安装 .vue文件的loader，14版本以上需要额外插件
+npm install vue-loader vue-template-compiler --save-dev
+
+1、打包html的plugin
+npm install html-webpack-plugin --save-dev
+2、丑化：删除空格等 ， 变量名
+自带报错
+npm install uglifyjs-webpack-plugin@1.1.1 --save-dev
+3、本地服务器
+会将修改的代码缓存在内存中，方便测试。可在测试完后build
+npm install --save-dev webpack-dev-server@2.9.1
+合并配置文件
+npm install --save-dev webpack-merge 
+
+安装移动端vue组件库vant
+npm install --save vant
+使用plugin引入vant
+npm install babel-plugin-import --save-dev
+在main.js中导入、安装插件
+
+默认配置文件为webpack。config。js，可配置webpack的打包文件
+
+安装脚手架,脚手架3后的写法 vue --verison 4.1.1
+npm install -g @vue/cli
+使用脚手架2的模板
+npm install @vue/cli-init -g
+脚手架2项目初始化
+vue init webpack [my-project]
+脚手架3初始化项目
+vue creat my-project
+e2e 端到端
+node build/build.js。v8引擎(Chrome，跳过字节码编译，直接使用二进制)。node可以直接运行js代码
+
+前端渲染，后端渲染
+后端路由阶段：
+jsp（html+css+java），客户端通过url请求后，在服务器端渲染后传给客户端
+后端路由：后端处理url和页面之间的关系
+
+前后分离：
+后端只提供数据。通过url去静态服务器里拿到静态资源（html+css+js）在浏览器中执行js代码通过ajax请求后台api接口服务器。
+
+前端路由阶段：SPA单页面富应用
+只有一个html页面index.html（html+css+js）。根据url抽取对应的html+css+js，渲染执行。
+前端路由通过url映射单页面中对应的部分资源，整个页面不刷新
+
+localhost.hash
+history.pushState({},'',home)
+history.replaceState({},'','home') 替换，浏览器返回按钮禁用
+history.go(-1)
+
+
+es6箭头函数：
+（参数列表）=>{}
+多参数  （num1,num2）=> { return num1+num2 }
+ 一行代码省略{}：（num1,num2）=> num1+num2
+无返回值，返回undefined （num1，num2）=> console.log('Hello')
+单参数 （num）=> { return }
+ 省略()  num  => { return }
+箭头函数的this：向外层作用域中，一层层查找this，直到有this的定义（即最近作用域的this）
+
+
+vuerouter路由 ： 
+安装vue-router，npm install vue-router --save
+<router-link to="/home" tag='button'> 默认会渲染成 <a/>，跳转至对应页面
+tag——可通过tag更改，
+replace——使用replaceState（），浏览器返回按钮禁用
+active-class——会将router-link-active的class改为active
+<rourwe-view> 渲染占位，会将router-link映射的组件，渲染在这里
+代码实现跳转
+this.$router.push('/home')
+this.$router.replace('/about')
+<keep-alive/>包裹<router-vue>后，所有路径匹配到的视图组件都会被缓存
+
+
+axios ：
+npm install axios --save
+axios({
+  url: 
+  params:{
+  }
+}).then(res => {console.log(res)});
+--
+success(res){ return console.log(res) }
+并发请求：返回数组
+axios.all([
+  axios({}),
+  axios({})
+]).then
+
+
+vuex:状态管理工具
+状态管理：多个组件之间状态(变量)共享
+npm install vuex --save-dev
+<HelloVuex :counter="counter"/>
+在store.js里 导入(imp),安装(vue.use),导出(export new)
+在其他组件类直接{{$store.state.变量名}}
+在main.js里导入(import store)
+
+
+调用父类(引用了helloVux的vue文件)属性：
+在helloVuex(子)里 
+  1、props：{父类变量：Number（类型）}，
+  2、可直接使用mustache{{父类变量}}(必须在父类中传回值)
+父类里将变量counter传给helloVuex里的counter:<hello-vuex :counter="counter"/>
+
+阻止显示生产模式的消息。Vue.config.productionTip = false
+
+
+runtime-only 代码中不能有template 在webpackConfig里配置resolve
+runtime-compiler
+
+ctrl+l选中行
+shift+alt+f 格式化代码
+ctrl+shift+k 删除行
+ctrl+enter 向下切换行
+alt+↑/↓ 上下移动行
+shift+alt+↑/↓ 上下复制行
+ctrl+k s 保存所有
+
++ vue-template-compiler@2.6.10
++ vue-loader@15.7.2servlet
+mvc:resources mapping="/statics/**" location="/statics/"
