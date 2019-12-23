@@ -5,3 +5,17 @@ artifactid  工程id  spring-core
 varsion   版本号
 parent  父pom
 properties 自定义maven属性
+maven基础：
+  依赖管理：传统项目将jar包直接放置在项目中，maven放在仓库中，在项目中只放jar坐标
+仓库种类：本地仓库，远程仓库【私服】，中央仓库
+  一键构建：maven自身继承了tomcat插件
+
+maven Project show Dependencies
+直接依赖：项目中直接导入的jar包。
+传递依赖：没有直接依赖，通过项目直接依赖jar包传递到项目中
+如果pom里的jar包（导入jar包的坐标；即直接依赖）依赖相同的其他包（传递依赖），就会有冲突
+解决jar包冲突的
+方式1：第一声明优先原则。哪个jar包坐标位置靠上，就是先声明的。该jar包的依赖包可以优先进入项目。
+（直接依赖优先于传递依赖。同为传递依赖，则先声明先依赖。）
+方式2：路径近者优先原则。直接依赖路径比传递依赖路径近（Show）
+方式3：exclusions排除某个传递依赖
